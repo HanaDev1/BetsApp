@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "707144379942",
+    "firebase_url": "https://betsapp-c89fe.firebaseio.com",
+    "project_id": "betsapp-c89fe",
+    "storage_bucket": "betsapp-c89fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:707144379942:android:e657d4ba9c18289d",
+        "android_client_info": {
+          "package_name": "com.example.hanaalalawi.betsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "707144379942-g06j7gq5ulvvc696li7f42guo0ul38oi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hanaalalawi.betsapp",
+            "certificate_hash": "6ffd8ef943f09551f5cc64b5f36a3d16867dc817"
+          }
+        },
+        {
+          "client_id": "707144379942-5mvkcccske1cekdb7p6sc8987dci44gi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCT9OUhdv6pJvhRyc1f4jIJXD1KsKRiXC0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "707144379942-5mvkcccske1cekdb7p6sc8987dci44gi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

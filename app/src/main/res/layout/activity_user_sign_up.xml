@@ -14,26 +14,36 @@
             android:layout_height="wrap_content"
             android:text="Sign Up"
             android:layout_marginTop="20dp"
-            android:textSize="20sp"/>
-
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Full Name"
+            android:id="@+id/userNameText"
+            style="@style/editTextStyle" />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="E-mail"
-            android:layout_marginTop="20dp"
-            android:id="@+id/userEmailText"/>
+            android:id="@+id/userEmailText"
+            style="@style/editTextStyle"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
-            android:layout_marginTop="20dp"
-            android:id="@+id/userPassText"/>
+            android:id="@+id/userPassText"
+            android:inputType="textPassword"
+            style="@style/editTextStyle"/>
         <Button
             android:id="@+id/userSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sign Up"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="25dp"
+            android:background="@drawable/button_style"
+            style="@style/editTextStyle"/>
         <TextView
             android:id="@+id/toSignInPage"
             android:layout_width="match_parent"
@@ -41,6 +51,7 @@
             android:text="Already have an account?"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"/>
+            android:layout_marginLeft="16dp"
+            android:textStyle="bold"/>
     </LinearLayout>
 </ScrollView>
