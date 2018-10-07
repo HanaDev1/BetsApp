@@ -46,7 +46,12 @@ public class UserSignUpActivity extends AppCompatActivity {
         toSignInPage = (TextView) findViewById(R.id.toSignInPage);
         signUpBtn = (Button) findViewById(R.id.userSignUp);
 
-
+        toSignInPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity( new Intent(UserSignUpActivity.this,SignInActivity.class));
+            }
+        });
 
         auth = FirebaseAuth.getInstance();
 
