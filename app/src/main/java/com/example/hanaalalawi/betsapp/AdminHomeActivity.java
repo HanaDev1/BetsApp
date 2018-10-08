@@ -9,8 +9,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -18,9 +23,15 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class AdminHomeActivity extends AppCompatActivity {
-    Button dateBtn;
+    Button dateBtn, timeBtn, addBtn;
     Calendar myCalendar;
     DatePickerDialog.OnDateSetListener date;
+    TimePicker timePicker1;
+    TextView timeValue;
+    private String format = "";
+    EditText teamOneInput, teamTwoInput;
+    String teamOneName, teamTwoName;
+    TextView dateUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,26 +44,67 @@ public class AdminHomeActivity extends AppCompatActivity {
 
         myCalendar = Calendar.getInstance();
 
-         date = new DatePickerDialog.OnDateSetListener() {
+        date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, month);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                //updateLabel();
-
             }
         };
         dateBtn = (Button) findViewById(R.id.dateButton);
+        timeBtn = (Button) findViewById(R.id.timeAdd);
+        addBtn = (Button) findViewById(R.id.addMatch);
+        teamOneInput = (EditText) findViewById(R.id.teamNameF);
+        teamTwoInput = (EditText) findViewById(R.id.teamNameS);
+        dateUpdate = (TextView) findViewById(R.id.dateText);
+
+        teamOneName = teamOneInput.getText().toString().trim();
+        teamTwoName = teamTwoInput.getText().toString().trim();
+
+        //add time
+        timePicker1 = (TimePicker) findViewById(R.id.timePicker1);
+
+        final int hour = myCalendar.get(Calendar.HOUR_OF_DAY);
+        final int min = myCalendar.get(Calendar.MINUTE);
+        final String dateString = dateUpdate.getText().toString();
+        showTime(hour, min);
+
+        //Adding match
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //upload Match data to DB
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Match");
+                reference.child("team_one").setValue(teamOneName);
+                reference.child("team_two").setValue(teamTwoName);
+                reference.child("match_time").setValue(hour+" "+min);
+                reference.child("match_date").setValue(dateString);
+            }
+        });
 
     }
 
+    public void setTime(View view) {
+        int hour = timePicker1.getCurrentHour();
+        int min = timePicker1.getCurrentMinute();
+        showTime(hour, min);
+    }
 
-    private void updateLabel() {
-        String myFormat = "MM/dd/yy"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-
-        dateBtn.setText(sdf.format(myCalendar.getTime()));
+    public void showTime(int hour, int min) {
+        if (hour == 0) {
+            hour += 12;
+            format = "AM";
+        } else if (hour == 12) {
+            format = "PM";
+        } else if (hour > 12) {
+            hour -= 12;
+            format = "PM";
+        } else {
+            format = "AM";
+        }
+        TextView timeValue = (TextView) findViewById(R.id.timeAdd);
+        //timeValue.setText("hour");
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navList =
@@ -76,14 +128,22 @@ public class AdminHomeActivity extends AppCompatActivity {
                 }
             };
 
+    //Adding match date
     public void onClick(View view) {
         new DatePickerDialog(AdminHomeActivity.this, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH)).show();
 
         String myFormat = "MM/dd/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        TextView dateUpdate = (TextView) findViewById(R.id.dateText);
+
         dateUpdate.setText(sdf.format(myCalendar.getTime()));
+    }
+
+    //Adding match time
+    public void onClickTime(View view) {
+//        timePicker1.setVisibility(View.VISIBLE);
+
+        timePicker1.setVisibility(View.GONE);
     }
 }
