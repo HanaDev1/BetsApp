@@ -68,6 +68,7 @@
         style="@style/buttonStyle"
         android:id="@+id/addMatch"
         android:background="@drawable/button_style"
-        android:layout_margin="16dp"/>
+        android:layout_margin="16dp"
+        android:onClick="addMatch"/>
 
 </LinearLayout>

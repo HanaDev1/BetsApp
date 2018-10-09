@@ -54,40 +54,44 @@ public class AdminHomeActivity extends AppCompatActivity {
         };
         dateBtn = (Button) findViewById(R.id.dateButton);
         timeBtn = (Button) findViewById(R.id.timeAdd);
+
+        //add time
+        final int hour = myCalendar.get(Calendar.HOUR_OF_DAY);
+        final int min = myCalendar.get(Calendar.MINUTE);
+
+        showTime(hour, min);
+    }
+
+    public void addMatch(View view){
+        //upload Match data to DB
         addBtn = (Button) findViewById(R.id.addMatch);
         teamOneInput = (EditText) findViewById(R.id.teamNameF);
         teamTwoInput = (EditText) findViewById(R.id.teamNameS);
-        dateUpdate = (TextView) findViewById(R.id.dateText);
 
         teamOneName = teamOneInput.getText().toString().trim();
         teamTwoName = teamTwoInput.getText().toString().trim();
 
-        //add time
         timePicker1 = (TimePicker) findViewById(R.id.timePicker1);
+        int hour = timePicker1.getCurrentHour();
+        int min = timePicker1.getCurrentMinute();
 
-        final int hour = myCalendar.get(Calendar.HOUR_OF_DAY);
-        final int min = myCalendar.get(Calendar.MINUTE);
-        final String dateString = dateUpdate.getText().toString();
-        showTime(hour, min);
+        String dateString = dateUpdate.getText().toString();
 
-        //Adding match
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //upload Match data to DB
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Match");
-                reference.child("team_one").setValue(teamOneName);
-                reference.child("team_two").setValue(teamTwoName);
-                reference.child("match_time").setValue(hour+" "+min);
-                reference.child("match_date").setValue(dateString);
-            }
-        });
-
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Match").push();
+        reference.child("team_one").setValue(teamOneName);
+        reference.child("team_two").setValue(teamTwoName);
+        reference.child("match_time").setValue(hour+" "+min);
+        reference.child("match_date").setValue(dateString);
     }
 
     public void setTime(View view) {
+        timePicker1 = (TimePicker) findViewById(R.id.timePicker1);
         int hour = timePicker1.getCurrentHour();
         int min = timePicker1.getCurrentMinute();
+
+        TextView timeValue = (TextView) findViewById(R.id.timeAdd);
+        timeValue.setText(new StringBuilder().append(hour).append(" : ").append(min)
+                .append(" ").append(format));
         showTime(hour, min);
     }
 
@@ -103,8 +107,7 @@ public class AdminHomeActivity extends AppCompatActivity {
         } else {
             format = "AM";
         }
-        TextView timeValue = (TextView) findViewById(R.id.timeAdd);
-        //timeValue.setText("hour");
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navList =
@@ -136,7 +139,7 @@ public class AdminHomeActivity extends AppCompatActivity {
 
         String myFormat = "MM/dd/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-
+        dateUpdate = (TextView) findViewById(R.id.dateText);
         dateUpdate.setText(sdf.format(myCalendar.getTime()));
     }
 
