@@ -12,7 +12,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -20,9 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.TimeZone;
 
-public class AdminHomeActivity extends AppCompatActivity {
+public class AddMatchActivity extends AppCompatActivity {
     Button dateBtn, timeBtn, addBtn;
     Calendar myCalendar;
     DatePickerDialog.OnDateSetListener date;
@@ -133,10 +131,10 @@ public class AdminHomeActivity extends AppCompatActivity {
 
     //Adding match date
     public void onClick(View view) {
-        new DatePickerDialog(AdminHomeActivity.this, date, myCalendar
+        new DatePickerDialog(AddMatchActivity.this, date, myCalendar
                 .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-
+        dateBtn = (Button) findViewById(R.id.dateButton);
         String myFormat = "MM/dd/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         dateUpdate = (TextView) findViewById(R.id.dateText);

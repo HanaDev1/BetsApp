@@ -81,7 +81,7 @@ public class SignInActivity extends AppCompatActivity {
                             for (DataSnapshot userSnap : dataSnapshot.getChildren()) {
                                 // admin Login
                                 if (userSnap.child("user_email").getValue(String.class).equals("betsAdmin@gmail.com")) {
-                                    Intent intent = new Intent(SignInActivity.this, AdminHomeActivity.class);
+                                    Intent intent = new Intent(SignInActivity.this, AddMatchActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("user_email", userEmail);
                                     intent.putExtras(bundle);

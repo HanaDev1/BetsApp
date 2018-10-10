@@ -18,7 +18,7 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".UserSignUpActivity" />
-        <activity android:name=".AdminHomeActivity"></activity>
+        <activity android:name=".AddMatchActivity"></activity>
     </application>
 
 </manifest>

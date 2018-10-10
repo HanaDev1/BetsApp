@@ -37,7 +37,6 @@ public class AddMatchFragment extends Fragment implements DatePickerDialog.OnDat
     }
 
 
-
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
